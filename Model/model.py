@@ -43,7 +43,6 @@ def preprocess_text(text):
     tokens = [ps.stem(word) for word in tokens]
     return ' '.join(tokens)
 
-# Streamlit app
 def main():
     st.title("Graph Neural Networks for Financial Risk Analysis")
     
