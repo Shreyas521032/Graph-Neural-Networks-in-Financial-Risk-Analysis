@@ -49,7 +49,7 @@ def main():
     
     # Sidebar controls
     st.sidebar.header("Configuration")
-    uploaded_file = st.sidebar.file_uploader("Dataset/financial_risk_dataset_enhanced.csv", type=["csv"])
+    uploaded_file = st.sidebar.file_uploader("Please Upload Your Financial-Risk Dataset", type=["csv"])
     epochs = st.sidebar.slider("Training Epochs", 10, 300, 200)
     hidden_channels = st.sidebar.slider("Hidden Channels", 16, 128, 64)
 
