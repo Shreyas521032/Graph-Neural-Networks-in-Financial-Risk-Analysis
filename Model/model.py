@@ -22,6 +22,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 # Download necessary NLTK data
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 # Set page config
@@ -48,7 +49,7 @@ def main():
     
     # Sidebar controls
     st.sidebar.header("Configuration")
-    uploaded_file = st.sidebar.file_uploader("Upload financial dataset", type=["csv"])
+    uploaded_file = st.sidebar.file_uploader("Dataset/financial_risk_dataset_enhanced.csv", type=["csv"])
     epochs = st.sidebar.slider("Training Epochs", 10, 300, 200)
     hidden_channels = st.sidebar.slider("Hidden Channels", 16, 128, 64)
 
