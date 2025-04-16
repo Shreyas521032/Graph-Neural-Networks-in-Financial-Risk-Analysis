@@ -1,0 +1,9 @@
+streamlit
+torch
+torch-geometric
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+nltk
