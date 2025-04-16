@@ -3,7 +3,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Graph%20Neural%20Nets-orange?logo=pytorch)
-![License](https://img.shields.io/github/LICENCE/Shreyas521032/Graph-Neural-Networks-in-Financial-Risk-Analysis)
+![License](https://img.shields.io/badge/LICENSE)
 
 ## 🧠 Project Overview
 
