@@ -119,7 +119,7 @@ def main():
                 for i in range(len(nodes)):
                     for j in range(i+1, len(nodes)):
                         edges.append((nodes[i], nodes[j]))
-            edge_index = torch.tensor(list(zip(*[(u, v) for u, v in edges])).long()
+            edge_index = torch.tensor(list(zip(*[(u, v) for u, v in edges])), dtype=torch.long)
 
             # Node features
             node_features = np.hstack((
