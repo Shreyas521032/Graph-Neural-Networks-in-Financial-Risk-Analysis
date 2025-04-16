@@ -96,6 +96,30 @@ def main():
             fig, ax = plt.subplots(figsize=(10,6))
             df['category'].value_counts().plot(kind='bar', ax=ax)
             st.pyplot(fig)
+            
+        elif viz_option == "Risk Level Distribution":
+            fig, ax = plt.subplots(figsize=(10,6))
+            df['risk_level'].value_counts().plot(kind='bar', ax=ax)
+            ax.set_title('Risk Level Distribution')
+            ax.set_xlabel('Risk Level')
+            ax.set_ylabel('Count')
+            st.pyplot(fig)
+            
+        elif viz_option == "Sentiment Analysis":
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16,6))
+            
+            # Sentiment Score by Category
+            sns.boxplot(x='category', y='sentiment_score', data=df, ax=ax1)
+            ax1.set_title('Sentiment Score by Category')
+            ax1.tick_params(axis='x', rotation=45)
+            
+            # Impact Score by Category
+            sns.boxplot(x='category', y='impact_score', data=df, ax=ax2)
+            ax2.set_title('Impact Score by Category')
+            ax2.tick_params(axis='x', rotation=45)
+            
+            plt.tight_layout()
+            st.pyplot(fig)
 
         # Model Training Section
         st.header("GNN Model Training")
@@ -132,6 +156,15 @@ def main():
             # Create data object
             data = Data(x=x, edge_index=edge_index, y=y)
 
+            # Add train/test split
+            indices = list(range(len(df)))
+            train_indices, test_indices = train_test_split(indices, test_size=0.2, random_state=42)
+            
+            train_mask = torch.zeros(len(df), dtype=torch.bool)
+            test_mask = torch.zeros(len(df), dtype=torch.bool)
+            train_mask[train_indices] = True
+            test_mask[test_indices] = True
+
             # Initialize model
             class GCN(torch.nn.Module):
                 def __init__(self, num_features, hidden_channels, num_classes):
@@ -161,16 +194,37 @@ def main():
                 model.train()
                 optimizer.zero_grad()
                 out = model(data.x, data.edge_index)
-                loss = criterion(out, data.y)
+                loss = criterion(out[train_mask], data.y[train_mask])
                 loss.backward()
                 optimizer.step()
+
+                # Calculate accuracies
+                with torch.no_grad():
+                    model.eval()
+                    pred = out.argmax(dim=1)
+                    train_acc = (pred[train_mask] == data.y[train_mask]).sum().item() / train_mask.sum().item()
+                    test_acc = (pred[test_mask] == data.y[test_mask]).sum().item() / test_mask.sum().item()
+                    
+                train_accuracies.append(train_acc)
+                test_accuracies.append(test_acc)
 
                 # Update progress
                 progress = (epoch + 1) / epochs
                 progress_bar.progress(progress)
-                status_text.text(f"Epoch {epoch+1}/{epochs} - Loss: {loss.item():.4f}")
+                status_text.text(f"Epoch {epoch+1}/{epochs} - Loss: {loss.item():.4f} | Train Acc: {train_acc:.2f} | Test Acc: {test_acc:.2f}")
 
             st.success("Training completed!")
+            
+            # Show accuracy graph
+            st.subheader("Training Progress")
+            fig, ax = plt.subplots(figsize=(10, 6))
+            ax.plot(train_accuracies, label='Train Accuracy')
+            ax.plot(test_accuracies, label='Test Accuracy')
+            ax.set_xlabel('Epoch')
+            ax.set_ylabel('Accuracy')
+            ax.set_title('Training and Validation Accuracy')
+            ax.legend()
+            st.pyplot(fig)
             
             # Show results
             model.eval()
