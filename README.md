@@ -15,7 +15,6 @@ This project explores how **Graph Neural Networks (GNNs)** can be applied in the
 
 ## 🗂️ Features
 
-- ✅ Synthetic dataset generator for financial headlines
 - ✅ Text preprocessing and vectorization
 - ✅ Risk classification based on sentiment and impact
 - ✅ Graph construction for GNN input
