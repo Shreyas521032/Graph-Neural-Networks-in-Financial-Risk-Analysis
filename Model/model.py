@@ -14,7 +14,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.manifold import TSNE
 import torch
-import requests
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 from sklearn.preprocessing import LabelEncoder
@@ -35,11 +34,12 @@ def load_data(uploaded_file):
     return pd.read_csv(uploaded_file)
 
 def load_sample_data():
-    url = "https://github.com/Shreyas521032/Graph-Neural-Networks-in-Financial-Risk-Analysis/blob/main/Dataset/financial_risk_dataset_enhanced.csv"
-    response = requests.get(url)
-    df = pd.read_csv(BytesIO(response.content))
+    df = pd.read_csv("Dataset/financial_risk_dataset_enhanced.csv")
     return df
 
+def convert_df_to_csv(df):
+    return df.to_csv(index=False).encode('utf-8')
+    
 def preprocess_text(text):
     text = text.lower()
     text = ''.join([char for char in text if char not in string.punctuation])
@@ -55,9 +55,11 @@ def main():
     
     # Sidebar controls
     st.sidebar.header("Configuration")
+    sample_df = load_sample_data()
+    csv_bytes = convert_df_to_csv(sample_df)
     st.sidebar.download_button(
         label="Download Sample Dataset",
-        data="Dataset/financial_risk_dataset_enhanced.csv",
+        data=csv_bytes,
         file_name="financial_risk_dataset.csv",
         mime="text/csv"
     )
