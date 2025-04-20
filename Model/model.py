@@ -48,11 +48,12 @@ def main():
     
     # Sidebar controls
     st.sidebar.header("Configuration")
+    SAMPLE_DATA = "Dataset/financial_risk_dataset_enhanced.csv"
     csv = SAMPLE_DATA.to_csv(index=False).encode('utf-8')
     st.sidebar.download_button(
         label="Download Sample Dataset",
         data=csv,
-        file_name="Dataset/financial_risk_dataset_enhanced.csv",
+        file_name="financial_risk_dataset.csv",
         mime="text/csv"
     )
     uploaded_file = st.sidebar.file_uploader("Please Upload Your Financial-Risk Dataset", type=["csv"])
