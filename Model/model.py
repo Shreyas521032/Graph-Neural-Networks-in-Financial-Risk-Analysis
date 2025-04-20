@@ -28,6 +28,8 @@ nltk.download('stopwords')
 # Set page config
 st.set_page_config(page_title="Financial Risk Analyzer", layout="wide")
 
+SAMPLE_DATA = "Dataset/financial_risk_dataset_enhanced.csv"
+
 # Helper functions
 @st.cache_data
 def load_data(uploaded_file):
@@ -48,7 +50,6 @@ def main():
     
     # Sidebar controls
     st.sidebar.header("Configuration")
-    SAMPLE_DATA = "Dataset/financial_risk_dataset_enhanced.csv"
     csv = SAMPLE_DATA.to_csv(index=False).encode('utf-8')
     st.sidebar.download_button(
         label="Download Sample Dataset",
