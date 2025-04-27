@@ -2413,254 +2413,126 @@ def create_daily_risk_trends(df):
 
 # Main function to run the dashboard app
 def main():
-    # Dashboard header
-    st.markdown("""
-    <div class="header">
-        <h1>📊 Market Risk Intelligence Dashboard</h1>
-        <p>Real-time market risk analysis and predictive intelligence</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Sidebar filters
-    st.sidebar.markdown('<h2 class="sidebar-header">Filters</h2>', unsafe_allow_html=True)
-    
-    # Generate sample data (in real app, this would be pulled from a database)
-    df = generate_sample_data()
-    
-    # Date range filter
-    min_date = df['date'].min().date()
-    max_date = df['date'].max().date()
-    
-    date_range = st.sidebar.date_input(
-        "Date Range",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date
-    )
-    
-    if len(date_range) == 2:
-        start_date, end_date = date_range
-        df = df[(df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date)]
-    
-    # Category filter
-    categories = ['All'] + sorted(df['category'].unique().tolist())
-    selected_category = st.sidebar.selectbox("Category", categories)
-    
-    if selected_category != 'All':
-        df = df[df['category'] == selected_category]
-    
-    # Risk level filter
-    risk_levels = ['All'] + sorted(df['risk_level'].unique().tolist())
-    selected_risk = st.sidebar.selectbox("Risk Level", risk_levels)
-    
-    if selected_risk != 'All':
-        df = df[df['risk_level'] == selected_risk]
-    
-    # Sentiment filter
-    sentiment_range = st.sidebar.slider(
-        "Sentiment Score",
-        min_value=-1.0,
-        max_value=1.0,
-        value=(-1.0, 1.0),
-        step=0.1
-    )
-    
-    df = df[(df['sentiment_score'] >= sentiment_range[0]) & (df['sentiment_score'] <= sentiment_range[1])]
-    
-    # Sidebar - Export options
-    st.sidebar.markdown('<h2 class="sidebar-header">Export Options</h2>', unsafe_allow_html=True)
-    export_format = st.sidebar.selectbox("Export Format", ["CSV", "Excel", "JSON"])
-    
-    if st.sidebar.button("Export Data"):
-        # In a real app, this would trigger a download
-        st.sidebar.success(f"Data exported as {export_format}!")
-    
-    # Sidebar - About section
-    st.sidebar.markdown('<h2 class="sidebar-header">About</h2>', unsafe_allow_html=True)
-    st.sidebar.info("""
-    Market Risk Intelligence Dashboard provides real-time analysis of market events 
-    and their potential impact on investment strategies. The platform uses advanced 
-    natural language processing and machine learning to identify, categorize, and 
-    quantify market risks.
-    
-    ©️ 2025 Financial Analytics Inc.
-    """)
-    
-    # Create tabs for different sections
-    tabs = st.tabs(["Overview", "Risk Analysis", "Network Analysis", "Text Analysis", "Predictive Models"])
-    
-    # Create dashboard sections
-    create_dashboard_tabs(tabs, df)
 
-# Generate sample data for demonstration
-def generate_sample_data(days=90, events_per_day=10):
-    """Generate sample data for the dashboard"""
-    np.random.seed(42)  # For reproducibility
-    
-    # Categories with varying risk distributions
-    categories = [
-        'Regulatory Changes',
-        'Market Volatility',
-        'Political Events',
-        'Economic Indicators',
-        'Corporate Actions',
-        'Global Markets',
-        'Technology Disruption',
-        'Cybersecurity'
-    ]
-    
-    # Risk levels
-    risk_levels = ['Low', 'Medium', 'High', 'Critical']
-    risk_weights = {
-        'Regulatory Changes': [0.3, 0.4, 0.2, 0.1],
-        'Market Volatility': [0.1, 0.3, 0.4, 0.2],
-        'Political Events': [0.2, 0.3, 0.3, 0.2],
-        'Economic Indicators': [0.4, 0.3, 0.2, 0.1],
-        'Corporate Actions': [0.5, 0.3, 0.1, 0.1],
-        'Global Markets': [0.2, 0.4, 0.3, 0.1],
-        'Technology Disruption': [0.3, 0.4, 0.2, 0.1],
-        'Cybersecurity': [0.1, 0.2, 0.4, 0.3]
-    }
-    
-    # Sample headlines by category
-    headlines = {
-        'Regulatory Changes': [
-            "New banking regulations announced by central bank",
-            "Financial watchdog introduces stricter lending rules",
-            "Regulatory body approves new market oversight measures",
-            "Government proposes changes to investment taxation",
-            "Regulatory compliance deadline extended for financial institutions"
-        ],
-        'Market Volatility': [
-            "Market experiences sharp sell-off amid uncertainty",
-            "Stock indices show increased volatility this quarter",
-            "Trading volume spikes as market sentiment shifts",
-            "Market volatility reaches highest level since financial crisis",
-            "Investors brace for increased market turbulence"
-        ],
-        'Political Events': [
-            "Election results create uncertainty in financial markets",
-            "Trade negotiations impact global market sentiment",
-            "Political tension between major economies affects trade",
-            "Policy changes announced following leadership transition",
-            "Government shutdown concerns weigh on market outlook"
-        ],
-        'Economic Indicators': [
-            "GDP growth exceeds analyst expectations",
-            "Inflation data shows unexpected rise in consumer prices",
-            "Employment figures indicate cooling job market",
-            "Consumer confidence index declines for third month",
-            "Manufacturing output shows signs of contraction"
-        ],
-        'Corporate Actions': [
-            "Major tech company announces acquisition of startup",
-            "Pharmaceutical giant reveals restructuring plan",
-            "Energy company declares dividend increase",
-            "Retail chain announces expansion into new markets",
-            "Auto manufacturer suspends production due to supply chain issues"
-        ],
-        'Global Markets': [
-            "Asian markets rally on positive economic data",
-            "European stocks decline amid banking concerns",
-            "Emerging markets face pressure from currency fluctuations",
-            "Global commodities see price volatility due to supply constraints",
-            "International investors shift focus to safe-haven assets"
-        ],
-        'Technology Disruption': [
-            "AI advancements reshape financial service delivery",
-            "Blockchain technology gains adoption in securities trading",
-            "Tech innovation challenges traditional banking models",
-            "Digital payments growth accelerates during economic uncertainty",
-            "Cloud computing transformation impacts financial operations"
-        ],
-        'Cybersecurity': [
-            "Major financial institution reports data breach",
-            "Ransomware attack targets payment processing systems",
-            "Financial sector cybersecurity spending increases",
-            "New vulnerability discovered in banking infrastructure",
-            "Central bank issues cybersecurity guidance for financial institutions"
-        ]
-    }
-    
-    # Create empty dataframe
-    data = []
-    
-    # Generate dates
-    end_date = datetime.now()
-    start_date = end_date - timedelta(days=days)
-    dates = [start_date + timedelta(days=i) for i in range(days)]
-    
-    # Generate events
-    for date in dates:
-        daily_events = np.random.randint(events_per_day - 2, events_per_day + 3)
+    # Initialize sidebar
+    with st.sidebar:
+        st.markdown('<div class="logo-text">📊 Financial Risk Analyzer</div>', unsafe_allow_html=True)
         
-        for _ in range(daily_events):
-            # Select category
-            category = np.random.choice(categories)
-            
-            # Select risk level based on category weights
-            risk_level = np.random.choice(risk_levels, p=risk_weights[category])
-            
-            # Select headline
-            headline = np.random.choice(headlines[category])
-            
-            # Generate metrics
-            sentiment_score = np.random.normal(
-                -0.5 if risk_level in ['High', 'Critical'] else 0.3,
-                0.3
-            )
-            sentiment_score = max(-1, min(1, sentiment_score))  # Clamp between -1 and 1
-            
-            impact_score = np.random.normal(
-                8 if risk_level == 'Critical' else
-                6 if risk_level == 'High' else
-                4 if risk_level == 'Medium' else 2,
-                1
-            )
-            impact_score = max(1, min(10, impact_score))  # Clamp between 1 and 10
-            
-            volatility_index = np.random.normal(
-                7 if risk_level == 'Critical' else
-                5 if risk_level == 'High' else
-                3 if risk_level == 'Medium' else 1.5,
-                0.8
-            )
-            volatility_index = max(0.5, min(10, volatility_index))  # Clamp between 0.5 and 10
-            
-            trading_volume = np.random.normal(
-                5000 if risk_level in ['High', 'Critical'] else 3000,
-                1000
-            )
-            trading_volume = max(1000, trading_volume)  # Minimum volume
-            
-            # Add some time-based trends
-            time_factor = (date - start_date).days / days
-            
-            # Create cyclic patterns
-            cycle_factor = math.sin(time_factor * 6 * math.pi)
-            
-            sentiment_score += cycle_factor * 0.2
-            impact_score += cycle_factor * 1
-            volatility_index += cycle_factor * 0.5
-            
-            # Add event to data
-            data.append({
-                'date': date,
-                'category': category,
-                'headline': headline,
-                'risk_level': risk_level,
-                'sentiment_score': sentiment_score,
-                'impact_score': impact_score,
-                'volatility_index': volatility_index,
-                'trading_volume': trading_volume
-            })
-    
-    # Convert to DataFrame
-    df = pd.DataFrame(data)
-    
-    return df
+        # Data source selection
+        data_option = st.radio(
+            "Choose data source:",
+            ("Upload CSV", "Use Sample Data")
+        )
+        
+        # Handle data loading
+        if data_option == "Upload CSV":
+            uploaded_file = st.file_uploader("Upload financial risk data (CSV)", type="csv")
+            df = load_data(uploaded_file) if uploaded_file else load_sample_data()
+        else:
+            df = load_sample_data()
+        
+        # Date range filter
+        df['date'] = pd.to_datetime(df['date'])
+        min_date = df['date'].min().date()
+        max_date = df['date'].max().date()
+        date_range = st.date_input("Select date range", (min_date, max_date))
+        
+        # Apply date filter
+        if len(date_range) == 2:
+            start_date, end_date = date_range
+            df = df[(df['date'].dt.date >= start_date) & (df['date'].dt.date <= end_date)]
+        
+        # Risk level filter
+        risk_levels = st.multiselect(
+            "Risk Levels",
+            options=df['risk_level'].unique(),
+            default=df['risk_level'].unique()
+        )
+        df = df[df['risk_level'].isin(risk_levels)] if risk_levels else df
 
-# Run the app
+    # Main content tabs
+    tabs = st.tabs(["Dashboard", "Risk Analysis", "Market Intelligence", "Text Analysis", "Predictive Models"])
+    
+    # Dashboard Tab
+    with tabs[0]:
+        st.markdown('<h2 class="sub-header">Executive Dashboard</h2>', unsafe_allow_html=True)
+        
+        if df.empty:
+            st.warning("No data available with current filters")
+            return
+        
+        create_metrics_row(df)
+        display_daily_risk_assessment(df)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            display_top_risk_factors(df)
+        with col2:
+            display_trending_topics(df)
+        
+        create_advanced_insights_row(df)
+        
+        # Display recommendations
+        st.markdown('<h3 class="sub-header">💡 Risk Management Recommendations</h3>', unsafe_allow_html=True)
+        for i, rec in enumerate(get_risk_recommendations(df)):
+            st.markdown(f"""
+            <div class="insights-card">
+                <span class="badge">#{i+1}</span> {rec}
+            </div>
+            """, unsafe_allow_html=True)
+
+    # Risk Analysis Tab
+    with tabs[1]:
+        st.markdown('<h2 class="sub-header">Risk Analysis</h2>', unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.plotly_chart(create_risk_heat_calendar(df), use_container_width=True)
+        with col2:
+            st.plotly_chart(create_category_risk_breakdown(df), use_container_width=True)
+        
+        st.plotly_chart(create_risk_timeline(df), use_container_width=True)
+        st.plotly_chart(create_source_analysis(df), use_container_width=True)
+
+    # Market Intelligence Tab
+    with tabs[2]:
+        st.markdown('<h2 class="sub-header">Market Intelligence</h2>', unsafe_allow_html=True)
+        
+        st.plotly_chart(create_volume_sentiment_plot(df), use_container_width=True)
+        st.plotly_chart(create_keyword_network(df), use_container_width=True)
+
+    # Text Analysis Tab
+    with tabs[3]:
+        st.markdown('<h2 class="sub-header">Text Analysis</h2>', unsafe_allow_html=True)
+        
+        st.plotly_chart(create_text_analysis(df), use_container_width=True)
+        
+        # Word frequency by risk level
+        risk_tabs = st.tabs(["All"] + sorted(df['risk_level'].unique().tolist()))
+        with risk_tabs[0]:
+            create_word_frequency_chart(df, title="Overall Word Frequency")
+        for i, risk_level in enumerate(sorted(df['risk_level'].unique())):
+            with risk_tabs[i+1]:
+                create_word_frequency_chart(
+                    df[df['risk_level'] == risk_level],
+                    title=f"{risk_level} Risk Words",
+                    color=get_risk_color(risk_level)
+                )
+
+    # Predictive Models Tab
+    with tabs[4]:
+        st.markdown('<h2 class="sub-header">Predictive Models</h2>', unsafe_allow_html=True)
+        
+        confusion, report = create_predictive_model(df)
+        if confusion is not None:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.plotly_chart(plot_confusion_matrix(confusion), use_container_width=True)
+            with col2:
+                st.write("Classification Report:")
+                st.json(report)
+        else:
+            st.warning("Insufficient data for modeling")
+
 if __name__ == "__main__":
-    main()
-        
+    main()     
