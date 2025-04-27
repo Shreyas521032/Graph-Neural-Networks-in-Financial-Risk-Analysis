@@ -1,16 +1,9 @@
 streamlit
-pandas
-numpy
-
-matplotlib
-seaborn
-plotly
-
-nltk
-
-scikit-learn
-
-torch
-
-
-string
+ torch
+ torch-geometric
+ pandas
+ numpy
+ matplotlib
+ seaborn
+ scikit-learn
+ nltk
