@@ -1,23 +1,17 @@
-# Core dependencies
 streamlit
 pandas
 numpy
 
-# Visualization libraries
 matplotlib
 seaborn
 plotly
 
-# NLP tools
 nltk
 
-# Machine learning
 scikit-learn
 
-# Deep learning
 torch
 torch-geometric
 
-# Other utilities
 datetime
 string
