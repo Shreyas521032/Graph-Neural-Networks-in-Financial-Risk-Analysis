@@ -1261,12 +1261,12 @@ def main():
         
         recommendations = get_risk_recommendations(df)
         for i, rec in enumerate(recommendations):
-            st.markdown(
+            st.markdown("""
             <div style="background: linear-gradient(120deg, #EFF6FF 0%, #DBEAFE 100%); 
                   border-radius: 10px; padding: 12px; margin-bottom: 10px; border-left: 4px solid #2563EB;">
                 <span style="font-weight: bold; color: #1D4ED8;">Recommendation {i+1}:</span> {rec}
             </div>
-            , unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
     
     # Risk Analysis Tab
     with tabs[1]:
