@@ -2428,9 +2428,14 @@ def main():
         # Handle data loading
         if data_option == "Upload CSV":
             uploaded_file = st.file_uploader("Upload financial risk data (CSV)", type="csv")
-            df = load_data(uploaded_file)
+            if uploaded_file is not None:
+                df = load_data(uploaded_file)
+            else:
+                st.warning("Please upload a CSV file to proceed.")
+                st.stop()
         else:
             df = load_sample_data()
+
         
         # Date range filter
         df['date'] = pd.to_datetime(df['date'])
