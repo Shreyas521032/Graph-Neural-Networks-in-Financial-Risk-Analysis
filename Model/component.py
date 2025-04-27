@@ -5,6 +5,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import nltk
+
+st.set_page_config(
+    page_title="Financial Risk Analyzer Pro 📊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    page_icon="💼"
+)
+
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
@@ -27,14 +35,6 @@ import calendar
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('punkt_tab')
-
-# Set page config
-st.set_page_config(
-    page_title="Financial Risk Analyzer Pro 📊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    page_icon="💼"
-)
 
 # Custom CSS for better styling
 st.markdown("""
