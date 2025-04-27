@@ -22,7 +22,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import calendar
-import date
+from datetime import date
 
 # Download necessary NLTK data
 nltk.download('punkt')
