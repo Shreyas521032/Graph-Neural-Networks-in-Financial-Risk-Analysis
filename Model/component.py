@@ -26,7 +26,6 @@ import calendar
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
-nltk.download('punkt_tab')
 
 # Set page config
 st.set_page_config(
