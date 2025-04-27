@@ -462,7 +462,7 @@ def create_advanced_insights_row(df):
         sentiment_class = "trend-indicator-up" if sentiment_trend > 0 else "trend-indicator-down"
         sentiment_icon = "↗️" if sentiment_trend > 0 else "↘️"
         
-        st.markdown(f"""
+        st.markdown(
         <div class="insights-card">
             <h4 style="color: #0D47A1; margin-top: 0;">📈 Market Intelligence</h4>
             <div style="display: flex; justify-content: space-between; align-items: center;">
