@@ -1,9 +1,23 @@
+# Core dependencies
 streamlit
-torch
-torch-geometric
 pandas
 numpy
+
+# Visualization libraries
 matplotlib
 seaborn
-scikit-learn
+plotly
+
+# NLP tools
 nltk
+
+# Machine learning
+scikit-learn
+
+# Deep learning
+torch
+torch-geometric
+
+# Other utilities
+datetime
+string
