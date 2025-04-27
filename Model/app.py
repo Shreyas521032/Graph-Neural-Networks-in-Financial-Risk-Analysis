@@ -64,24 +64,31 @@ st.markdown("""
         padding: 1rem;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #F0F9FF;  /* Light background for contrast */
     }
-    .sidebar .sidebar-content {
+    /* Sidebar Styling */
+    .css-1d391kg {
         background-image: linear-gradient(#2563EB, #1E40AF);
         color: white;
     }
+    /* Button Styling */
     .stButton>button {
         background-color: #2563EB;
         color: white;
         border-radius: 20px;
         padding: 0.5rem 1rem;
         font-weight: bold;
+        transition: background-color 0.3s ease;
     }
     .stButton>button:hover {
         background-color: #1E40AF;
     }
-    .stProgress .st-eb {
-        background-color: #10B981;
+    /* Progress Bar Styling */
+    .stProgress > div > div > div {
+        background-color: #10B981; /* Green for progress */
+        border-radius: 8px;
     }
+    /* Tab Header Styling */
     .tab-subheader {
         font-size: 1.2rem;
         font-weight: 600;
@@ -89,6 +96,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
 
 # Helper functions
 @st.cache_data
