@@ -5,14 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
 import nltk
-
-st.set_page_config(
-    page_title="Financial Risk Analyzer Pro 📊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    page_icon="💼"
-)
-
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
@@ -30,11 +22,20 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import calendar
+import date
 
 # Download necessary NLTK data
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('punkt_tab')
+
+
+st.set_page_config(
+    page_title="Financial Risk Analyzer Pro 📊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    page_icon="💼"
+)
 
 # Custom CSS for better styling
 st.markdown("""
@@ -2427,7 +2428,7 @@ def main():
         # Handle data loading
         if data_option == "Upload CSV":
             uploaded_file = st.file_uploader("Upload financial risk data (CSV)", type="csv")
-            df = load_data(uploaded_file) if uploaded_file else load_sample_data()
+            df = load_data(uploaded_file)
         else:
             df = load_sample_data()
         
