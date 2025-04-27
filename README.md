@@ -25,7 +25,7 @@ This project explores how **Graph Neural Networks (GNNs)** can be applied in the
 
 ## 📁 Dataset
 
-The dataset contains **500 synthetic news headlines** from categories like:
+The dataset contains **500 news headlines** from categories like:
 
 - 📈 Market
 - 🏦 Banking
