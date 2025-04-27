@@ -2413,12 +2413,6 @@ def create_daily_risk_trends(df):
 
 # Main function to run the dashboard app
 def main():
-    # Page configuration
-    st.set_page_config(
-        page_title="Market Risk Intelligence Dashboard",
-        page_icon="📊",
-        layout="wide"
-    )
     
     # Load CSS
     with open('style.css') as f:
