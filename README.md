@@ -1,7 +1,6 @@
 
 # 📊 Graph Neural Networks in Financial Risk Analysis
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Graph%20Neural%20Nets-orange?logo=pytorch)
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
