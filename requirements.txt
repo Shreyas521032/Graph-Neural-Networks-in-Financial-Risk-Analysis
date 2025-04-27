@@ -1,6 +1,7 @@
 streamlit
  torch
  torch-geometric
+ plotly
  pandas
  numpy
  matplotlib
