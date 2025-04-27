@@ -389,31 +389,31 @@ def create_metrics_row(df):
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.markdown(
+        st.markdown("""
         <div class="metric-card" style="background: linear-gradient(120deg, #E0F2FE 0%, #EFF6FF 100%);">
             <h3 style="color: #0D47A1;">📊 Data Points</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{}</h2>
             <p style="color: #6B7280; font-size: 0.9rem;">Analysis records</p>
         </div>
-        .format(df.shape[0]), unsafe_allow_html=True)
+        """.format(df.shape[0]), unsafe_allow_html=True)
         
     with col2:
-        st.markdown(
+        st.markdown("""
         <div class="metric-card" style="background: linear-gradient(120deg, #DBEAFE 0%, #EEF2FF 100%);">
             <h3 style="color: #0D47A1;">⚠️ Risk Categories</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{}</h2>
             <p style="color: #6B7280; font-size: 0.9rem;">Classification levels</p>
         </div>
-        .format(df['risk_level'].nunique()), unsafe_allow_html=True)
+        """.format(df['risk_level'].nunique()), unsafe_allow_html=True)
         
     with col3:
-        st.markdown(
+        st.markdown("""
         <div class="metric-card" style="background: linear-gradient(120deg, #E0F2FE 0%, #EFF6FF 100%);">
             <h3 style="color: #0D47A1;">🔍 News Sources</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{}</h2>
             <p style="color: #6B7280; font-size: 0.9rem;">Information channels</p>
         </div>
-        .format(df['source'].nunique()), unsafe_allow_html=True)
+        """.format(df['source'].nunique()), unsafe_allow_html=True)
         
     with col4:
         avg_sentiment = df['sentiment_score'].mean()
@@ -422,7 +422,7 @@ def create_metrics_row(df):
         trend_icon = "↗️" if trend > 0 else "↘️"
         trend_class = "trend-indicator-up" if trend > 0 else "trend-indicator-down"
         
-        st.markdown(f"""
+        st.markdown("""
         <div class="metric-card" style="background: linear-gradient(120deg, #DBEAFE 0%, #EEF2FF 100%);">
             <h3 style="color: #0D47A1;">{sentiment_emoji} Market Sentiment</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{avg_sentiment:.2f}</h2>
@@ -476,7 +476,7 @@ def create_advanced_insights_row(df):
                 </div>
             </div>
         </div>
-        , unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
 def create_risk_heat_calendar(df):
     # Prepare data for calendar heatmap
