@@ -163,14 +163,13 @@ def main():
     
     # Sidebar with improved styling
     with st.sidebar:
-        st.image("https://img.icons8.com/clouds/100/financial-growth-analysis.png", width=100)
         st.markdown("## ⚙️ Configuration")
         
         sample_df = load_sample_data()
         csv_bytes = convert_df_to_csv(sample_df)
         
         st.download_button(
-            label="📥 Download Sample Dataset",
+            label="📥 Download Dataset",
             data=csv_bytes,
             file_name="financial_risk_dataset.csv",
             mime="text/csv"
