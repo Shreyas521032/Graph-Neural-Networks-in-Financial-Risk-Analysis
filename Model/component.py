@@ -994,7 +994,7 @@ def display_top_risk_factors(df):
     top_risks = category_risk.sort_values('combined_risk', ascending=False).head(5)
     
     # Display top risk factors
-    st.markdown(
+    st.markdown("""
     <h3 class="sub-header">⚠️ Top Risk Factors</h3>
     , unsafe_allow_html=True)
     
@@ -1009,7 +1009,7 @@ def display_top_risk_factors(df):
         else:
             color = "#10B981"  # Low risk - Green
             
-        progress_width = int(risk['combined_risk'] * 100)
+       progress_width = int(risk['combined_risk'] * 100)
         
         st.markdown(
         <div style="margin-bottom: 12px;">
@@ -1024,7 +1024,7 @@ def display_top_risk_factors(df):
                 {risk['event_count']} events | {risk['high_risk_pct']:.1f}% high risk | Impact: {risk['avg_impact']:.2f}/10
             </div>
         </div>
-        , unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
 def display_trending_topics(df):
     # Process headlines to extract topics
@@ -1045,21 +1045,21 @@ def display_trending_topics(df):
     trending = sorted(topics.items(), key=lambda x: x[1], reverse=True)[:10]
     
     # Display trending topics
-    st.markdown(
+    st.markdown("""
     <h3 class="sub-header">🔥 Trending Topics</h3>
     <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    , unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
     for topic, score in trending:
         size = int(min(score * 100, 20) + 12)  # Scale font size based on importance
         opacity = min(score * 3, 1)  # Scale opacity based on importance
         
-        st.markdown(
+        st.markdown("""
         <div style="background-color: rgba(13, 71, 161, {opacity}); color: white; padding: 5px 12px; 
               border-radius: 20px; font-size: {size}px; margin-bottom: 8px; display: inline-block;">
             {topic}
         </div>
-        , unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -1211,12 +1211,12 @@ def main():
         )
         
         # Add a premium badge
-        st.markdown(
+        st.markdown("""
         <div style="margin-top: 20px; background: linear-gradient(90deg, #0D2F62, #4f709c); border-radius: 5px; padding: 10px;">
             <div style="font-weight: bold; color: white;">✨ Premium Edition</div>
             <div style="font-size: 0.9rem; color: #E5E7EB;">Advanced financial risk analytics</div>
         </div>
-        , unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
     
     # Main content area
     tabs = st.tabs([
