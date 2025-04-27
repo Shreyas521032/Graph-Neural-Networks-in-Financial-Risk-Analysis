@@ -1228,33 +1228,36 @@ def main():
     else:
         # Display welcome message when no data is loaded
         st.markdown("""
-        <div class="card animate-in" style="padding: 2rem; text-align: center;">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">📊💸</div>
-            <h2>Welcome to the Financial Risk Analyzer!</h2>
-            <p>This application uses advanced Graph Neural Networks to analyze and categorize financial news based on risk levels.</p>
-            <p>To get started, please upload a CSV file with financial news data or use the sample dataset from the sidebar.</p>
+    <div style="padding: 2rem; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">📊💸</div>
+        <h2>Welcome to the Financial Risk Analyzer!</h2>
+        <p>This application uses advanced Graph Neural Networks to analyze and categorize financial news based on risk levels.</p>
+        <p>To get started, please upload a CSV file with financial news data or use the sample dataset from the sidebar.</p>
+        
+        <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
             
-            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <div style="text-align: center; max-width: 200px; padding: 1rem; background-color: #eff6ff; border-radius: 8px;">
-                    <div class="feature-icon">📝</div>
-                    <h3>Text Analysis</h3>
-                    <p>Process and analyze news headlines using NLP techniques</p>
-                </div>
-                
-                <div style="text-align: center; max-width: 200px; padding: 1rem; background-color: #f0fdf4; border-radius: 8px;">
-                    <div class="feature-icon">📊</div>
-                    <h3>Visualizations</h3>
-                    <p>Interactive charts and graphs to explore the data</p>
-                </div>
-                
-                <div style="text-align: center; max-width: 200px; padding: 1rem; background-color: #eff6ff; border-radius: 8px;">
-                    <div class="feature-icon">🤖</div>
-                    <h3>GNN Model</h3>
-                    <p>Advanced Graph Neural Network for risk classification</p>
-                </div>
+            <div style="text-align: center; width: 250px; padding: 1rem; background-color: #eff6ff; border-radius: 12px; margin: 0.5rem;">
+                <div style="font-size: 2rem;">📝</div>
+                <h3>Text Analysis</h3>
+                <p style="font-size: 0.9rem;">Process and analyze news headlines using NLP techniques</p>
             </div>
+            
+            <div style="text-align: center; width: 250px; padding: 1rem; background-color: #f0fdf4; border-radius: 12px; margin: 0.5rem;">
+                <div style="font-size: 2rem;">📊</div>
+                <h3>Visualizations</h3>
+                <p style="font-size: 0.9rem;">Interactive charts and graphs to explore the data</p>
+            </div>
+            
+            <div style="text-align: center; width: 250px; padding: 1rem; background-color: #eff6ff; border-radius: 12px; margin: 0.5rem;">
+                <div style="font-size: 2rem;">🤖</div>
+                <h3>GNN Model</h3>
+                <p style="font-size: 0.9rem;">Advanced Graph Neural Network for risk classification</p>
+            </div>
+
         </div>
-        """, unsafe_allow_html=True)
+    </div>
+""", unsafe_allow_html=True)
+
         
         # Sample screenshots
         st.markdown("""
