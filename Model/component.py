@@ -994,9 +994,9 @@ def display_top_risk_factors(df):
     top_risks = category_risk.sort_values('combined_risk', ascending=False).head(5)
     
     # Display top risk factors
-    st.markdown("""
+    st.markdown(
     <h3 class="sub-header">⚠️ Top Risk Factors</h3>
-    """, unsafe_allow_html=True)
+    , unsafe_allow_html=True)
     
     for i, (_, risk) in enumerate(top_risks.iterrows()):
         # Determine color based on risk level
