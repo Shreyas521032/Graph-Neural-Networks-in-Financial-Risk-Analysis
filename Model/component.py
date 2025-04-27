@@ -953,7 +953,7 @@ def display_daily_risk_assessment(df):
         risk_class = "risk-level-low"
     
     # Display assessment
-    st.markdown(
+    st.markdown("""
     <div class="card premium-card">
         <h3 class="sub-header">🚨 Daily Risk Assessment</h3>
         <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -974,7 +974,7 @@ def display_daily_risk_assessment(df):
             </div>
         </div>
     </div>
-    , unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 def display_top_risk_factors(df):
     # Calculate risk factors by category
