@@ -389,31 +389,31 @@ def create_metrics_row(df):
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.markdown("""
+        st.markdown(
         <div class="metric-card" style="background: linear-gradient(120deg, #E0F2FE 0%, #EFF6FF 100%);">
             <h3 style="color: #0D47A1;">📊 Data Points</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{}</h2>
             <p style="color: #6B7280; font-size: 0.9rem;">Analysis records</p>
         </div>
-        """.format(df.shape[0]), unsafe_allow_html=True)
+        .format(df.shape[0]), unsafe_allow_html=True)
         
     with col2:
-        st.markdown("""
+        st.markdown(
         <div class="metric-card" style="background: linear-gradient(120deg, #DBEAFE 0%, #EEF2FF 100%);">
             <h3 style="color: #0D47A1;">⚠️ Risk Categories</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{}</h2>
             <p style="color: #6B7280; font-size: 0.9rem;">Classification levels</p>
         </div>
-        """.format(df['risk_level'].nunique()), unsafe_allow_html=True)
+        .format(df['risk_level'].nunique()), unsafe_allow_html=True)
         
     with col3:
-        st.markdown("""
+        st.markdown(
         <div class="metric-card" style="background: linear-gradient(120deg, #E0F2FE 0%, #EFF6FF 100%);">
             <h3 style="color: #0D47A1;">🔍 News Sources</h3>
             <h2 style="color: #0D2F62; font-size: 2.5rem;">{}</h2>
             <p style="color: #6B7280; font-size: 0.9rem;">Information channels</p>
         </div>
-        """.format(df['source'].nunique()), unsafe_allow_html=True)
+        .format(df['source'].nunique()), unsafe_allow_html=True)
         
     with col4:
         avg_sentiment = df['sentiment_score'].mean()
@@ -1045,21 +1045,21 @@ def display_trending_topics(df):
     trending = sorted(topics.items(), key=lambda x: x[1], reverse=True)[:10]
     
     # Display trending topics
-    st.markdown("""
+    st.markdown(
     <h3 class="sub-header">🔥 Trending Topics</h3>
     <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-    """, unsafe_allow_html=True)
+    , unsafe_allow_html=True)
     
     for topic, score in trending:
         size = int(min(score * 100, 20) + 12)  # Scale font size based on importance
         opacity = min(score * 3, 1)  # Scale opacity based on importance
         
-        st.markdown(f"""
+        st.markdown(
         <div style="background-color: rgba(13, 71, 161, {opacity}); color: white; padding: 5px 12px; 
               border-radius: 20px; font-size: {size}px; margin-bottom: 8px; display: inline-block;">
             {topic}
         </div>
-        """, unsafe_allow_html=True)
+        , unsafe_allow_html=True)
     
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -1606,7 +1606,7 @@ def main():
             return
         
         # Create model card
-        st.markdown("""
+        st.markdown(
         <div class="card premium-card">
             <h3 style="margin-top: 0;">🤖 Risk Prediction Model</h3>
             <p>This model predicts the likelihood of high-risk events based on market factors.</p>
@@ -1625,7 +1625,7 @@ def main():
                 </div>
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        , unsafe_allow_html=True)
         
         # Model performance
         st.markdown('<h3 class="sub-header">Model Performance</h3>', unsafe_allow_html=True)
@@ -1675,7 +1675,7 @@ def main():
                 high_risk_precision = class_report['1']['precision']
                 high_risk_recall = class_report['1']['recall']
                 
-                st.markdown(f"""
+                st.markdown(
                 <div style="background: #EFF6FF; padding: 15px; border-radius: 10px; margin-top: 10px;">
                     <div style="font-weight: bold; margin-bottom: 5px;">High Risk Event Detection</div>
                     <div style="display: flex; justify-content: space-between;">
@@ -1687,7 +1687,7 @@ def main():
                         with {high_risk_precision:.1%} precision.
                     </div>
                 </div>
-                """, unsafe_allow_html=True)
+                , unsafe_allow_html=True)
         else:
             st.info("Not enough data to create a predictive model. Please expand your date range or filters.")
         
@@ -1828,7 +1828,7 @@ def main():
         scenario_tabs = st.tabs(["Base Case", "Bear Case", "Bull Case"])
         
         with scenario_tabs[0]:
-            st.markdown("""
+            st.markdown(
             <div style="background: #EFF6FF; padding: 15px; border-radius: 10px;">
                 <div style="font-weight: bold; font-size: 1.1rem;">Base Case Scenario</div>
                 <div style="margin: 10px 0;">Predicted market conditions continue with moderate volatility.</div>
@@ -1847,10 +1847,10 @@ def main():
                     </div>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            , unsafe_allow_html=True)
         
         with scenario_tabs[1]:
-            st.markdown("""
+            st.markdown(
             <div style="background: #FEF2F2; padding: 15px; border-radius: 10px;">
                 <div style="font-weight: bold; font-size: 1.1rem;">Bear Case Scenario</div>
                 <div style="margin: 10px 0;">Significant deterioration in market conditions with high volatility.</div>
@@ -1869,10 +1869,10 @@ def main():
                     </div>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            , unsafe_allow_html=True)
         
         with scenario_tabs[2]:
-            st.markdown("""
+            st.markdown(
             <div style="background: #ECFDF5; padding: 15px; border-radius: 10px;">
                 <div style="font-weight: bold; font-size: 1.1rem;">Bull Case Scenario</div>
                 <div style="margin: 10px 0;">Improving market conditions with lower volatility and positive sentiment.</div>
@@ -1891,7 +1891,7 @@ def main():
                     </div>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            , unsafe_allow_html=True)
 
 # Helper functions that were missing from the original code
 
@@ -2426,12 +2426,12 @@ def main():
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
     # Dashboard header
-    st.markdown("""
+    st.markdown(
     <div class="header">
         <h1>📊 Market Risk Intelligence Dashboard</h1>
         <p>Real-time market risk analysis and predictive intelligence</p>
     </div>
-    """, unsafe_allow_html=True)
+    , unsafe_allow_html=True)
     
     # Sidebar filters
     st.sidebar.markdown('<h2 class="sidebar-header">Filters</h2>', unsafe_allow_html=True)
