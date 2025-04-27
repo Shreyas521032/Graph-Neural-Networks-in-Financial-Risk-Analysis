@@ -456,13 +456,13 @@ def create_advanced_insights_row(df):
                 </div>
             </div>
         </div>
-        .format(high_risk_pct, volatility_avg, (high_risk_pct * volatility_avg) / 100), unsafe_allow_html=True)
+        """.format(high_risk_pct, volatility_avg, (high_risk_pct * volatility_avg) / 100), unsafe_allow_html=True)
         
     with col2:
         sentiment_class = "trend-indicator-up" if sentiment_trend > 0 else "trend-indicator-down"
         sentiment_icon = "↗️" if sentiment_trend > 0 else "↘️"
         
-        st.markdown(
+        st.markdown("""
         <div class="insights-card">
             <h4 style="color: #0D47A1; margin-top: 0;">📈 Market Intelligence</h4>
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -996,7 +996,7 @@ def display_top_risk_factors(df):
     # Display top risk factors
     st.markdown("""
     <h3 class="sub-header">⚠️ Top Risk Factors</h3>
-    , unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
     for i, (_, risk) in enumerate(top_risks.iterrows()):
         # Determine color based on risk level
@@ -1011,7 +1011,7 @@ def display_top_risk_factors(df):
             
        progress_width = int(risk['combined_risk'] * 100)
         
-        st.markdown(
+        st.markdown("""
         <div style="margin-bottom: 12px;">
             <div style="display: flex; justify-content: space-between;">
                 <div><strong>{risk['category']}</strong></div>
@@ -1606,7 +1606,7 @@ def main():
             return
         
         # Create model card
-        st.markdown(
+        st.markdown("""
         <div class="card premium-card">
             <h3 style="margin-top: 0;">🤖 Risk Prediction Model</h3>
             <p>This model predicts the likelihood of high-risk events based on market factors.</p>
@@ -1625,7 +1625,7 @@ def main():
                 </div>
             </div>
         </div>
-        , unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
         
         # Model performance
         st.markdown('<h3 class="sub-header">Model Performance</h3>', unsafe_allow_html=True)
@@ -1675,7 +1675,7 @@ def main():
                 high_risk_precision = class_report['1']['precision']
                 high_risk_recall = class_report['1']['recall']
                 
-                st.markdown(
+                st.markdown("""
                 <div style="background: #EFF6FF; padding: 15px; border-radius: 10px; margin-top: 10px;">
                     <div style="font-weight: bold; margin-bottom: 5px;">High Risk Event Detection</div>
                     <div style="display: flex; justify-content: space-between;">
@@ -1687,7 +1687,7 @@ def main():
                         with {high_risk_precision:.1%} precision.
                     </div>
                 </div>
-                , unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
         else:
             st.info("Not enough data to create a predictive model. Please expand your date range or filters.")
         
@@ -1828,7 +1828,7 @@ def main():
         scenario_tabs = st.tabs(["Base Case", "Bear Case", "Bull Case"])
         
         with scenario_tabs[0]:
-            st.markdown(
+            st.markdown("""
             <div style="background: #EFF6FF; padding: 15px; border-radius: 10px;">
                 <div style="font-weight: bold; font-size: 1.1rem;">Base Case Scenario</div>
                 <div style="margin: 10px 0;">Predicted market conditions continue with moderate volatility.</div>
@@ -1847,10 +1847,10 @@ def main():
                     </div>
                 </div>
             </div>
-            , unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
         
         with scenario_tabs[1]:
-            st.markdown(
+            st.markdown("""
             <div style="background: #FEF2F2; padding: 15px; border-radius: 10px;">
                 <div style="font-weight: bold; font-size: 1.1rem;">Bear Case Scenario</div>
                 <div style="margin: 10px 0;">Significant deterioration in market conditions with high volatility.</div>
@@ -1869,10 +1869,10 @@ def main():
                     </div>
                 </div>
             </div>
-            , unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
         
         with scenario_tabs[2]:
-            st.markdown(
+            st.markdown("""
             <div style="background: #ECFDF5; padding: 15px; border-radius: 10px;">
                 <div style="font-weight: bold; font-size: 1.1rem;">Bull Case Scenario</div>
                 <div style="margin: 10px 0;">Improving market conditions with lower volatility and positive sentiment.</div>
@@ -1891,7 +1891,7 @@ def main():
                     </div>
                 </div>
             </div>
-            , unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
 # Helper functions that were missing from the original code
 
@@ -2426,12 +2426,12 @@ def main():
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
     # Dashboard header
-    st.markdown(
+    st.markdown("""
     <div class="header">
         <h1>📊 Market Risk Intelligence Dashboard</h1>
         <p>Real-time market risk analysis and predictive intelligence</p>
     </div>
-    , unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
     # Sidebar filters
     st.sidebar.markdown('<h2 class="sidebar-header">Filters</h2>', unsafe_allow_html=True)
