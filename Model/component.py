@@ -2413,11 +2413,6 @@ def create_daily_risk_trends(df):
 
 # Main function to run the dashboard app
 def main():
-    
-    # Load CSS
-    with open('style.css') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-    
     # Dashboard header
     st.markdown("""
     <div class="header">
