@@ -38,64 +38,143 @@ st.set_page_config(
 # Custom CSS for better styling
 st.markdown("""
 <style>
+    /* Header Styling */
     .main-header {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         color: #1E3A8A;
         text-align: center;
         margin-bottom: 1rem;
         padding-bottom: 1rem;
         border-bottom: 2px solid #E2E8F0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        text-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     .sub-header {
         font-size: 1.8rem;
         color: #2563EB;
         padding-top: 1rem;
         margin-top: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
     }
+
+    /* Card Styling */
     .card {
-        padding: 1.5rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        background-color: white;
-        margin-bottom: 1rem;
+        padding: 1.8rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        background-color: #FFFFFF;
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    /* Metric Card Styling */
     .metric-card {
         text-align: center;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        background-color: #F0F9FF;  /* Light background for contrast */
+        padding: 1.2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #F0F9FF;
+        margin-bottom: 1.2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+    .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
     /* Sidebar Styling */
     .css-1d391kg {
-        background-image: linear-gradient(#2563EB, #1E40AF);
+        background-image: linear-gradient(145deg, #2563EB, #1E40AF);
         color: white;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
     }
+    .css-1d391kg:hover {
+        background-color: #1D4ED8;
+    }
+
     /* Button Styling */
     .stButton>button {
         background-color: #2563EB;
         color: white;
-        border-radius: 20px;
-        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        padding: 0.7rem 1.4rem;
         font-weight: bold;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        border: none;
     }
     .stButton>button:hover {
         background-color: #1E40AF;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+
     /* Progress Bar Styling */
     .stProgress > div > div > div {
-        background-color: #10B981; /* Green for progress */
+        background-color: #10B981; /* Smooth green for progress */
         border-radius: 8px;
+        height: 12px;
     }
+
     /* Tab Header Styling */
     .tab-subheader {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: 600;
         color: #4B5563;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #E2E8F0;
     }
+
+    /* Footer Styling */
+    .footer {
+        text-align: center;
+        margin-top: 3rem;
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        padding-top: 1rem;
+    }
+
+    /* Custom Scrollbar for File List */
+    .file-list {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #F8FAFC;
+        border-radius: 8px;
+    }
+    .file-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px;
+        margin-bottom: 8px;
+        background-color: #FFFFFF;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .file-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Remove Button Styling in File List */
+    .remove-btn {
+        color: #DC2626;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # Helper functions
