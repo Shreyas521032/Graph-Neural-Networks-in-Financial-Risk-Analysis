@@ -1,7 +1,13 @@
 streamlit
  torch
+ networkx
+ wordcloud
  torch-geometric
  plotly
+ openpyxl
+ pyvis
+ scipy
+ regex
  pandas
  numpy
  matplotlib
