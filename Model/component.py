@@ -36,6 +36,7 @@ st.set_page_config(
 )
 
 # Custom CSS for better styling - Enhanced with new card styles and animations
+# Inject the CSS
 st.markdown("""
 <style>
     .main-header {
@@ -75,11 +76,11 @@ st.markdown("""
     .metric-card:hover {
         transform: scale(1.05);
     }
-    .sidebar .sidebar-content {
+    section[data-testid="stSidebar"] {
         background-image: linear-gradient(#2563EB, #1E40AF);
         color: white;
     }
-    .stButton>button {
+    button[kind="primary"] {
         background-color: #2563EB;
         color: white;
         border-radius: 20px;
@@ -87,11 +88,11 @@ st.markdown("""
         font-weight: bold;
         transition: all 0.3s ease;
     }
-    .stButton>button:hover {
+    button[kind="primary"]:hover {
         background-color: #1E40AF;
         transform: scale(1.05);
     }
-    .stProgress .st-eb {
+    div[data-testid="stProgressBar"] > div > div {
         background-color: #10B981;
     }
     .tab-subheader {
@@ -160,21 +161,9 @@ st.markdown("""
         visibility: visible;
         opacity: 1;
     }
-    /* Dark/light mode toggle */
-    .toggle-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-    }
-    .toggle-switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
 </style>
 """, unsafe_allow_html=True)
+
 
 # Helper functions
 @st.cache_data
