@@ -1008,7 +1008,7 @@ def display_top_risk_factors(df):
             color = "#FBBF24"  # Medium risk - Yellow
         else:
             color = "#10B981"  # Low risk - Green
-     progress_width = int(risk['combined_risk'] * 100)
+        progress_width = int(risk['combined_risk'] * 100)
         
         st.markdown("""
         <div style="margin-bottom: 12px;">
