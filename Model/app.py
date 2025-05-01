@@ -752,7 +752,7 @@ def main():
                 # Visualize
                 fig = px.bar(
                     x=feature_importance[top_indices],
-                    y=[f"Feature {i}" for i in top_indices],
+                    y=top_features,
                     orientation='h',
                     title="🔍 Top Feature Importance",
                     labels={"x": "Importance", "y": "Feature"},
