@@ -28,6 +28,115 @@ nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 
+# Dot connection animation component
+def canvas_animation():
+    html("""
+    <canvas id="dotCanvas"></canvas>
+    <style>
+        #dotCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .stApp {
+            background-color: transparent !important;
+        }
+    </style>
+    <script>
+        const canvas = document.getElementById('dotCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const dots = [];
+        const dotCount = 80;
+        const proximity = 100;
+        const colors = ['#9C27B0', '#E91E63', '#2196F3', '#00BCD4'];
+        
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            
+            update() {
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.draw();
+            }
+        }
+        
+        function init() {
+            for (let i = 0; i < dotCount; i++) {
+                dots.push(new Dot());
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            dots.forEach(dot => {
+                dot.update();
+                dots.forEach(otherDot => {
+                    const distance = Math.hypot(dot.x - otherDot.x, dot.y - otherDot.y);
+                    if (distance < proximity) {
+                        ctx.beginPath();
+                        ctx.moveTo(dot.x, dot.y);
+                        ctx.lineTo(otherDot.x, otherDot.y);
+                        ctx.strokeStyle = `rgba(156, 39, 176, ${1 - distance/proximity})`;
+                        ctx.lineWidth = 0.3;
+                        ctx.stroke();
+                    }
+                });
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Mouse interaction
+        canvas.addEventListener('mousemove', (e) => {
+            dots.forEach(dot => {
+                const dx = e.clientX - dot.x;
+                const dy = e.clientY - dot.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < proximity * 2) {
+                    dot.x += dx * 0.01;
+                    dot.y += dy * 0.01;
+                }
+            });
+        });
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+        
+        init();
+        animate();
+    </script>
+    """, height=0)
+
+# Run the canvas animation
+canvas_animation()
+
 # Set page config
 st.set_page_config(
     page_title="Financial Risk Analyzer 📊",
@@ -175,115 +284,6 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
-
-def canvas_animation():
-    html("""
-    <canvas id="dotCanvas"></canvas>
-    <style>
-        #dotCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .stApp {
-            background-color: transparent !important;
-        }
-    </style>
-    <script>
-        const canvas = document.getElementById('dotCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        
-        const dots = [];
-        const dotCount = 80;
-        const proximity = 100;
-        const colors = ['#9C27B0', '#E91E63', '#2196F3', '#00BCD4'];
-        
-        class Dot {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.radius = Math.random() * 2;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-            
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-            
-            update() {
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                this.x += this.vx;
-                this.y += this.vy;
-                this.draw();
-            }
-        }
-        
-        function init() {
-            for (let i = 0; i < dotCount; i++) {
-                dots.push(new Dot());
-            }
-        }
-        
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            dots.forEach(dot => {
-                dot.update();
-                dots.forEach(otherDot => {
-                    const distance = Math.hypot(dot.x - otherDot.x, dot.y - otherDot.y);
-                    if (distance < proximity) {
-                        ctx.beginPath();
-                        ctx.moveTo(dot.x, dot.y);
-                        ctx.lineTo(otherDot.x, otherDot.y);
-                        ctx.strokeStyle = `rgba(156, 39, 176, ${1 - distance/proximity})`;
-                        ctx.lineWidth = 0.3;
-                        ctx.stroke();
-                    }
-                });
-            });
-            
-            requestAnimationFrame(animate);
-        }
-        
-        // Mouse interaction
-        canvas.addEventListener('mousemove', (e) => {
-            dots.forEach(dot => {
-                const dx = e.clientX - dot.x;
-                const dy = e.clientY - dot.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < proximity * 2) {
-                    dot.x += dx * 0.01;
-                    dot.y += dy * 0.01;
-                }
-            });
-        });
-        
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init();
-        });
-        
-        init();
-        animate();
-    </script>
-    """, height=0)
-
-# Run the canvas animation
-canvas_animation()
-
 
 # Helper functions
 @st.cache_data
