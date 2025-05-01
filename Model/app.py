@@ -36,6 +36,8 @@ st.set_page_config(
     page_icon="💰"
 )
 
+dot_background()
+
 # Custom CSS for better styling
 st.markdown("""
 <style>
