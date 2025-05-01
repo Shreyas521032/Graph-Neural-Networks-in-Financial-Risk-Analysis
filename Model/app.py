@@ -531,6 +531,14 @@ def main():
 
                 # Create edges
                 edges = []
+                category_groups = df.groupby('category_encoded')
+                for _, group in category_groups:
+                    indices = group.index.tolist()
+                    if len(indices) > 1:
+                        edges.append((indices[0], indices[1]))  # Connect first two nodes per category
+
+                edge_index = torch.tensor(list(zip(*edges)), dtype=torch.long) if edges else torch.empty((2, 0), dtype=torch.long)
+                                
                 for category in df['category_encoded'].unique():
                     nodes = df[df['category_encoded'] == category].index.tolist()
                     for i in range(len(nodes)):
@@ -564,12 +572,12 @@ def main():
                     def __init__(self, num_features, hidden_channels, num_classes):
                         super().__init__()
                         self.conv1 = GCNConv(num_features, hidden_channels)
-                        self.conv2 = GCNConv(hidden_channels, hidden_channels)
+                        self.dropout = torch.nn.Dropout(0.5)
                         self.lin = torch.nn.Linear(hidden_channels, num_classes)
 
                     def forward(self, x, edge_index):
                         x = self.conv1(x, edge_index).relu()
-                        x = self.conv2(x, edge_index).relu()
+                        x = self.dropout(x)
                         return self.lin(x)
 
                 model = GCN(num_features=data.num_node_features,
