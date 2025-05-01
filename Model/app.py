@@ -72,6 +72,10 @@ st.markdown("""
         transform: translateY(-5px);
         box-shadow: 0 12px 24px rgba(0,0,0,0.15);
     }
+    .footer:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
 
     /* Metric Card Styling */
     .metric-card {
