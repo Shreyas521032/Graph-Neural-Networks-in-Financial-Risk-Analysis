@@ -1,9 +1,5 @@
 [theme]
 base = "light"
-primaryColor = "#9C27B0"
-secondaryBackgroundColor = "#1A1D24"
-textColor = "#FFFFFF"
-font = "sans serif"
 
 [server]
 headless = true
