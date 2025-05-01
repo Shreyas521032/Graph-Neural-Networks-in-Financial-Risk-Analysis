@@ -273,6 +273,7 @@ def main():
         st.markdown("---")
         st.markdown("### 🔍 App Info")
         st.info("This app uses Graph Neural Networks to analyze financial risk based on news headlines and various metrics.")
+        st.markdown("Developed By Shreyas Kasture")
 
     if uploaded_file is not None:
         df = load_data(uploaded_file)
