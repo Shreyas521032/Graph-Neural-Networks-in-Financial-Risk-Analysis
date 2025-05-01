@@ -150,6 +150,13 @@ st.markdown("""
         background-color: #F8FAFC;
         border-radius: 8px;
     }
+    .footer {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
     .file-item {
         display: flex;
         justify-content: space-between;
@@ -761,6 +768,15 @@ def main():
             </ul>
         </div>
         """, unsafe_allow_html=True)
+        # Footer
+        st.markdown("""
+<div class="footer">
+    <div style="text-align:center;">
+        <h3>💰 Financial Risk Analyzer</h3>
+        <p style="color:#4e54c8; font-weight:600;">Engineered with ❤️ by Shreyas Kasture for Data Enthusiasts</p>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
