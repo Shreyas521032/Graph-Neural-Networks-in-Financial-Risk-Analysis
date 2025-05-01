@@ -1,82 +1,107 @@
-import streamlit.components.v1 as components
+import streamlit as st
+from streamlit.components.v1 import html
 
 def dot_background():
-    components.html(
-        """
-        <canvas id="dotCanvas"></canvas>
-        <style>
-            #dotCanvas {
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 0;
-                pointer-events: none;
-            }
-            .stApp {
-                background-color: rgba(14, 17, 23, 0.9) !important;
-                position: relative;
-                z-index: 1;
-            }
-        </style>
-        <script>
-            const canvas = document.createElement('canvas');
-            document.body.prepend(canvas);
-            const ctx = canvas.getContext('2d');
-            
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resizeCanvas();
-            
-            const dots = Array(80).fill().map(() => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.8,
-                vy: (Math.random() - 0.5) * 0.8,
-                radius: Math.random() * 2,
-                color: ['#9C27B0', '#E91E63', '#2196F3', '#00BCD4'][Math.floor(Math.random() * 4)]
-            }));
-            
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+    html(f"""
+    <canvas id="canvasBg"></canvas>
+    <style>
+        #canvasBg {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100vw;
+            height: 100vh;
+        }}
+        [data-testid="stAppViewContainer"] {{
+            background-color: transparent;
+        }}
+        .stApp {{
+            background: linear-gradient(rgba(14, 17, 23, 0.95), rgba(14, 17, 23, 0.95));
+        }}
+    </style>
+    <script>
+        const canvas = document.getElementById('canvasBg');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {{
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }}
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Particle configuration
+        const particles = [];
+        const particleCount = {{
+            mobile: 30,
+            desktop: 80
+        }};
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+        const count = isMobile ? particleCount.mobile : particleCount.desktop;
+        
+        // Create particles
+        class Particle {{
+            constructor() {{
+                this.reset();
+            }}
+            reset() {{
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2;
+                this.color = `hsl(${{Math.random() * 360}}, 70%, 60%)`;
+            }}
+            update() {{
+                this.x += this.vx;
+                this.y += this.vy;
                 
-                dots.forEach(dot => {
-                    dot.x += dot.vx;
-                    dot.y += dot.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }}
+        }}
+
+        // Initialize particles
+        for (let i = 0; i < count; i++) {{
+            particles.push(new Particle());
+        }}
+
+        function animate() {{
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles.forEach(particle => {{
+                particle.update();
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+            }});
+
+            // Draw connections
+            particles.forEach((a, i) => {{
+                particles.slice(i + 1).forEach(b => {{
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (dot.x < 0 || dot.x > canvas.width) dot.vx *= -1;
-                    if (dot.y < 0 || dot.y > canvas.height) dot.vy *= -1;
-                    
-                    ctx.beginPath();
-                    ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = dot.color;
-                    ctx.fill();
-                });
-                
-                dots.forEach((a, i) => {
-                    dots.slice(i).forEach(b => {
-                        const dx = a.x - b.x;
-                        const dy = a.y - b.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 100) {
-                            ctx.beginPath();
-                            ctx.moveTo(a.x, a.y);
-                            ctx.lineTo(b.x, b.y);
-                            ctx.strokeStyle = `rgba(156, 39, 176, ${1 - distance/100})`;
-                            ctx.lineWidth = 0.3;
-                            ctx.stroke();
-                        }
-                    });
-                });
-                
-                requestAnimationFrame(animate);
-            }
+                    if (dist < 150) {{
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.strokeStyle = a.color;
+                        ctx.globalAlpha = 1 - dist/150;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }}
+                }});
+            }});
             
-            window.addEventListener('resize', resizeCanvas);
-            animate();
-        </script>
-        """,
-        height=0,
-        width=0,
-    )
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(animate);
+        }}
+        
+        animate();
+    </script>
+    """, height=0, width=0)
