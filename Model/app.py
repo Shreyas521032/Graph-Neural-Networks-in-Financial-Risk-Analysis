@@ -139,6 +139,7 @@ st.markdown("""
         color: #7f8c8d;
         font-size: 0.9rem;
         padding-top: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     /* Custom Scrollbar for File List */
