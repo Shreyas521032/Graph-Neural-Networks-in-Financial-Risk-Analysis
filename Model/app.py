@@ -21,7 +21,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from components.dot_background import dot_background
+from components/dot_background.py import dot_background
 
 # Download necessary NLTK data
 nltk.download('punkt')
