@@ -28,6 +28,14 @@ nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('punkt_tab')
 
+# Set page config
+st.set_page_config(
+    page_title="Financial Risk Analyzer 📊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    page_icon="💰"
+)
+
 # Dot connection animation component
 def canvas_animation():
     html("""
@@ -136,14 +144,6 @@ def canvas_animation():
 
 # Run the canvas animation
 canvas_animation()
-
-# Set page config
-st.set_page_config(
-    page_title="Financial Risk Analyzer 📊",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    page_icon="💰"
-)
 
 # Custom CSS for better styling
 st.markdown("""
