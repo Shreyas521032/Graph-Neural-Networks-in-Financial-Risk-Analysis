@@ -744,7 +744,11 @@ def main():
                 # Get top features
                 feature_importance = np.abs(weights).mean(axis=0)
                 top_indices = np.argsort(feature_importance)[-10:]
-                
+                feature_names = (
+    list(tfidf_vectorizer.get_feature_names_out()) + 
+    ['sentiment', 'impact', 'category', 'source']
+)
+                top_features = [feature_names[i] for i in top_indices]
                 # Visualize
                 fig = px.bar(
                     x=feature_importance[top_indices],
